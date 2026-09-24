@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block title %}Все статьи | SmartRead{% endblock %}
+{% block content %}
+<h1 class="mb-4">Все статьи</h1>
+{% if query %}
+<p class="text-muted">Результаты поиска: «{{ query }}»</p>
+{% endif %}
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  {% for article in articles %}
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a
+            href="{% url 'article_detail' article.slug %}"
+            class="text-decoration-none text-dark"
+          >
+            {{ article.title }}
+          </a>
+        </h5>
+        <p class="text-muted small">
+          {{ article.category.name }} · {{ article.created_at|date:"d.m.Y" }} ·
+          👁 {{ article.views }}
+        </p>
+        <p>{{ article.content|truncatewords:20 }}</p>
+        {% for tag in article.tags.all %}
+        <span class="badge bg-secondary">{{ tag.name }}</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p>Статей пока нет.</p>
+  {% endfor %}
+</div>
+{% endblock %}

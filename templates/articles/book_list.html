@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Каталог книг | SmartRead{% endblock%}
+{% block content %}
+<h1 class="mb-4">📚 Каталог книг</h1>
+
+<form method="get" action="/books/" class="mb-4">
+  <div class="input-group">
+    <input
+      type="text"
+      name="q"
+      class="form-control"
+      placeholder="Поиск по названию или автору..."
+      value="{{ query }}"
+    />
+    <button class="btn btn-primary" type="submit">Найти</button>
+  </div>
+</form>
+
+{% if query %}
+<p class="text-muted">Результаты поиска: «{{ query }}»</p>
+{% endif %}
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  {% for book in books %}
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      {% if book.cover %}
+      <img
+        src="{{ book.cover.url }}"
+        class="card-img-top"
+        style="height: 300px; object-fit: cover"
+        alt="{{ book.title }}"
+      />
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">
+          <a
+            href="{% url 'book_detail' book.pk %}"
+            class="text-decoration-none text-dark"
+          >
+            {{ book.title }}
+          </a>
+        </h5>
+        <p class="text-muted small mb-2">{{ book.author }}</p>
+        <span class="badge bg-primary">{{ book.genre }}</span>
+        <p class="mt-2">{{ book.description|truncatewords:15 }}</p>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p>Книг пока нет.</p>
+  {% endfor %}
+</div>
+{% endblock %}
