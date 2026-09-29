@@ -33,6 +33,6 @@
 
 ## Автор
 
-Марина Гусева — @Marina800
+Марина Гусева — [@Marina800](https://github.com/Marina800)
 
 
