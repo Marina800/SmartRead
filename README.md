@@ -14,10 +14,23 @@
 ## Стек
 
 - Python 3.14, Django 6.1
-- PostgreSQL
+- PostgreSQL 16
+- Redis 7
+- Docker + Docker Compose
 - Bootstrap 5
 
-## Как запустить локально
+## Как запустить через Docker (рекомендуется)
+
+1. Установить Docker Desktop.
+2. Клонировать репозиторий: git clone https://github.com/Marina800/SmartRead.git
+3. Перейти в папку проекта: cd SmartRead
+4. Создать в корне файл .env с такими строками: SECRET_KEY=любой_секретный_ключ, DEBUG=True, DB_NAME=smartread_db, DB_USER=postgres, DB_PASSWORD=ваш_пароль, DB_HOST=db, DB_PORT=5432
+5. Запустить контейнеры: docker-compose up --build
+6. В отдельном терминале применить миграции: docker-compose exec web python manage.py migrate
+7. Создать администратора: docker-compose exec web python manage.py createsuperuser
+8. Открыть в браузере: http://127.0.0.1:8000/
+
+## Как запустить локально (без Docker)
 
 1. Клонировать репозиторий: git clone https://github.com/Marina800/SmartRead.git
 2. Перейти в папку проекта: cd SmartRead
@@ -31,8 +44,10 @@
 10. Запустить сервер: python manage.py runserver
 11. Открыть в браузере: http://127.0.0.1:8000/
 
-## Автор
+Автор
 
 Марина Гусева — [@Marina800](https://github.com/Marina800)
+
+
 
 
